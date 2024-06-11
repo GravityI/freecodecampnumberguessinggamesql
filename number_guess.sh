@@ -1,13 +1,13 @@
 #!/bin/bash
 PSQL="psql --username=freecodecamp --dbname=number_guess -t --no-align -c"
 
+#Game Variables
 RANDOM_NUMBER=$((1 + $RANDOM % 1000))
 NUMBER_OF_GUESSES=0
-echo $RANDOM_NUMBER
 
 USERNAME_MENU ()
 {
-  #Prompts the user for the username and either gets existing data or adds
+  #Prompts the user for the username and tries to get existing data. After that, starts the game
   echo "Enter your username:"
   read USERNAME
   USERNAME_RESULT=$($PSQL "SELECT name FROM users WHERE name = '$USERNAME'")
@@ -28,10 +28,12 @@ USERNAME_MENU ()
 
 GAME_MENU ()
 {
+  #Game functionality
   if [[ $1 ]]
   then
     echo -e "$1"
   fi
+
   read GUESS
   INTEGER_PATTERN='^[0-9]+$'
   if [[ $GUESS =~ $INTEGER_PATTERN ]]
