@@ -48,7 +48,6 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.users (
-    user_id integer NOT NULL,
     name character varying(22) NOT NULL,
     games_played integer DEFAULT 0 NOT NULL,
     best_game integer
@@ -58,45 +57,9 @@ CREATE TABLE public.users (
 ALTER TABLE public.users OWNER TO freecodecamp;
 
 --
--- Name: usernames_user_id_seq; Type: SEQUENCE; Schema: public; Owner: freecodecamp
---
-
-CREATE SEQUENCE public.usernames_user_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.usernames_user_id_seq OWNER TO freecodecamp;
-
---
--- Name: usernames_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
---
-
-ALTER SEQUENCE public.usernames_user_id_seq OWNED BY public.users.user_id;
-
-
---
--- Name: users user_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
---
-
-ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.usernames_user_id_seq'::regclass);
-
-
---
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-
-
---
--- Name: usernames_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
---
-
-SELECT pg_catalog.setval('public.usernames_user_id_seq', 1, false);
 
 
 --
@@ -105,14 +68,6 @@ SELECT pg_catalog.setval('public.usernames_user_id_seq', 1, false);
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT usernames_name_key UNIQUE (name);
-
-
---
--- Name: users usernames_user_id_key; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT usernames_user_id_key UNIQUE (user_id);
 
 
 --
